@@ -211,17 +211,23 @@ system
 E_{\sigma(i)}-E_{\sigma(n-1-i)}\;=\;d_i \qquad (i=0,\dots,h-1,
 \ \text{with } d_i:=0 \text{ for } i\ge m),
 \]
-that is, $A_\sigma\,d = B\,c_\sigma + e_\sigma$ with integer data. Every
-fixed point lies in at least one cell (ties are broken arbitrarily; all
-cell inequalities are closed), so classifying all cells classifies all
-fixed points.
+that is, $A_\sigma\,d = B\,c_\sigma + e_\sigma$ with integer data. Here
+$A_\sigma$ is the $h\times m$ integer matrix whose $i$-th row lists the
+coefficients of the unknowns $(d_0,\dots,d_{m-1})$ in the left-hand
+expression $E_{\sigma(i)}-E_{\sigma(n-1-i)}-d_i$, while $c_\sigma$ and
+$e_\sigma$ in $\mathbb{Z}^h$ collect, row by row, the coefficient of $B$
+and the constant term on the right. Every fixed point lies in at least
+one cell (ties are broken arbitrarily; all cell inequalities are
+closed), so classifying all cells classifies all fixed points.
 
 Each cell is classified over $\mathbb{Q}$ by row reduction in exact
-rational arithmetic; since the right-hand side is linear in $B$, a
-unique solution has the closed form $d_i=(\alpha_i B+\beta_i)/\Delta$.
-The cells fall into four classes: unique solution for all $B$; unique
-solution at a single $B$; inconsistent; and underdetermined. For cells
-unique in $B$ we then impose the full validity system --- the sorting
+rational arithmetic. Writing $\Delta:=\det A_\sigma$ when the system is
+square and of full rank, a unique solution then has the closed form
+$d_i=(\alpha_i B+\beta_i)/\Delta$. The cells fall into four classes:
+(a) a unique solution valid for all $B$; (b) a unique solution only at a
+single value of $B$; (c) inconsistent (no solution); and (d)
+underdetermined (a positive-dimensional solution set). For cells in
+class (a) we then impose the full validity system --- the sorting
 inequalities of $\sigma$, the digit bounds $0\le E_j\le B$, $d_0\ge 1$,
 the channel condition $d_{m-1}\ge 1$, and monotonicity of $d$ --- all of
 which are linear in $B$, giving exact thresholds; integrality of the
@@ -230,6 +236,40 @@ inequalities hold for all large $B$ and whose congruences are solvable
 yields an \emph{infinite family}; a cell whose inequalities hold only in
 a window $[B_{\min},B_{\max}]$ is exhausted by direct enumeration.
 
+\smallskip
+\noindent\textbf{Worked examples ($n=6$).} To make the four classes
+concrete, take $n=6$, where the six successor expressions are
+$E=(d_0,\,d_1,\,d_2-1,\,B-d_2,\,B-d_1,\,b-d_0)$ in channel $t=0$ (three
+unknowns) and $E=(d_0,\,d_1-1,\,B,\,B,\,B-d_1,\,b-d_0)$ in channel $t=1$
+(two unknowns). One representative of each class:
+
+\emph{(a) Unique for all $B$ --- an infinite family.} In channel $t=0$,
+the ordering $[\,B-d_2,\,d_0,\,d_1,\,B-d_1,\,b-d_0,\,d_2-1\,]$ yields
+\[
+-d_0-2d_2=-B-1,\qquad 2d_0-d_1=B+1,\qquad 2d_1-d_2=B,
+\]
+with the unique solution
+$d=\bigl(\tfrac{7B+5}{9},\,\tfrac{5B+1}{9},\,\tfrac{B+2}{9}\bigr)$,
+integral and valid for all $b\ge 8$. This is precisely the
+$b\equiv 8\pmod 9$ family of Table~\ref{tab:n6}, with $\Delta=9$.
+
+\emph{(b) Unique at a single $B$.} In channel $t=1$, the ordering
+$[\,d_0,\,B,\,B,\,b-d_0,\,d_1-1,\,B-d_1\,]$ yields $d_1=B$, $2d_1=B+1$,
+and $d_0=1$; the first two force $B=1$, so this cell contributes a fixed
+point only at the single base $b=2$.
+
+\emph{(c) Inconsistent.} In channel $t=0$, the ordering
+$[\,d_0,\,d_2-1,\,d_1,\,b-d_0,\,B-d_1,\,B-d_2\,]$ yields both $d_2=B$ and
+$d_2=B+1$; row reduction leaves the residual equation $0=-1$, so the
+cell is empty for every base.
+
+\emph{(d) Underdetermined.} In channel $t=0$, the ordering
+$[\,d_0,\,d_2-1,\,d_1,\,B-d_2,\,b-d_0,\,B-d_1\,]$ yields $d_1=B$ (twice)
+together with $d_0-d_1+d_2=B+2$; the coefficient matrix has rank $2<3$,
+leaving one free parameter. Such cells are closed by the linear program
+of principle (ii) below.
+
+\smallskip
 Two design principles keep the argument airtight.
 
 \emph{(i) One-way door.} Every existence claim (family members,
