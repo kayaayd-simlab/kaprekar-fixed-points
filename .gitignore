@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Copyrighted third-party PDFs and extracted text (not ours to redistribute)
+data/lit/
+
+# Build artifacts / local-only
+*.zip
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/_check_cites.py
+
+# Blog draft (published separately)
+blog_post.md
+
+# The ancillary staging copy (same files already tracked at root)
+ancillary/
+paper/*_jis.tex

@@ -1,0 +1,471 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title[Bases admitting six- and eight-digit Kaprekar fixed points]{Bases admitting six- and eight-digit Kaprekar fixed points:\\ a complete congruence classification}
+
+\author{Ayd{\i}n Kaya}
+\address{Independent researcher}
+\email{kaya.ayd@gmail.com}
+
+\subjclass[2020]{11A63 (primary), 05A17, 11B50 (secondary)}
+\keywords{Kaprekar transformation, fixed points, digit maps, radix representations, computer-assisted proof}
+
+\begin{document}
+
+\begin{abstract}
+For the Kaprekar transformation $K_b$ (sort the base-$b$ digits in
+descending and ascending order and subtract) acting on integers with a
+fixed digit length $n$, we determine, for $n=6$ and $n=8$, exactly which
+bases $b\ge 2$ admit a fixed point. For $n=6$: a fixed point exists if
+and only if $2\mid b$, or $b\equiv 6 \pmod 7$, or $b\equiv 8 \pmod 9$,
+or $b\equiv 10 \pmod{15}$. For $n=8$: if and only if $3\mid b$, or
+$b\equiv 10,12\pmod{15}$, or $b\equiv 11,14\pmod{17}$, or
+$b\equiv 13\pmod{21}$, or $b\in\{2,4,8\}$. All fixed points are given by
+explicit families, linear in $b$, together with a finite exceptional set
+confined to $b\le 10$. The proofs are computer-assisted but exact: a
+channel decomposition of the borrow chain reduces the problem to finitely
+many linear systems over $\mathbb{Q}$, classified with exact rational
+arithmetic, and the indeterminate cases are closed by exact
+two-variable linear programming. We describe the structural transition
+between the two classifications: the moduli-doubling phenomenon for odd
+bases persists, while the universal even-base witness of $n=6$ is
+replaced at $n=8$ by a parity-blind $3\mid b$ family. We also formulate
+conjectures for $n=10$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Fix a base $b\ge 2$ and a digit length $n$. For an integer $x$ with
+exactly $n$ digits in base $b$ (leading digit nonzero), let
+$\mathrm{desc}(x)$ and $\mathrm{asc}(x)$ denote the integers obtained by
+sorting the digit string of $x$ (leading zeros permitted after sorting)
+in descending and ascending order, and set
+\[
+K_{b,n}(x) \;=\; \mathrm{desc}(x)-\mathrm{asc}(x).
+\]
+Kaprekar's celebrated observation \cite{Kaprekar} is that in base $10$
+with $n=4$ every non-repdigit integer reaches the fixed point $6174$.
+The literature on the Kaprekar transformation splits into two natural
+axes. Along the first axis one fixes the \emph{base} and studies all
+digit lengths: this is the programme completed for base $10$ constants by
+Prichett, Ludington and Lapenta \cite{PLL}, refined by Iwasaki
+\cite{Iwasaki}, and developed for general odd and even bases in the
+two-part work of Kay and Downes-Ward \cite{KD1,KD2}; Ludington
+\cite{Ludington} showed that every base admits only finitely many
+Kaprekar constants. Along the second
+axis one fixes the \emph{digit length} $n$ and varies the base. Here two
+questions must be distinguished. The classical, stronger question asks
+for \emph{Kaprekar constants}: a unique fixed point attracting every
+non-repdigit $n$-digit integer. Prichett and Hasse \cite{HP} determined
+all bases with a four-digit Kaprekar constant; Lapenta, Ludington and
+Prichett \cite{LLP} gave an algorithm for self-producing ($=$ fixed)
+$r$-digit $g$-adic integers. Thakur \cite{Thakur19} settled the odd
+lengths $n=5,7,9$ (with a single base each for $n=7,9$), gave partial
+data for $n=6,8$ (Kaprekar constants found only at $b=13,17$ for $n=6$
+among $b\le 39$, and only at $b=3$ for $n=8$ among $b\le 17$), and
+posed as an open problem exactly the existence question we answer here
+(``characterization of $(B,D)$ such that $\mathrm{FP}(B,D)$ is
+non-empty''). The very recent cross-base study of $n=4$ dynamics in
+\cite{COST} shows the axis remains active. The weaker \emph{existence}
+question (which bases admit \emph{any} $n$-digit fixed point) is the
+natural first layer of
+that programme, and it is the question we settle here for the even
+lengths $n=6$ and $n=8$. The distinction matters: for instance, our
+scanner shows that for $b\le 60$ five-digit fixed points exist precisely
+for $b=2$ and $3\mid b$, whereas five-digit Kaprekar \emph{constants}
+are far rarer.
+
+To our knowledge the even lengths $n\ge 6$ have remained open on the
+second axis. This paper closes the first two cases.
+
+\begin{theorem}[$n=6$]\label{thm:n6}
+A base $b\ge 2$ admits a six-digit Kaprekar fixed point if and only if
+\[
+2\mid b \quad\lor\quad b\equiv 6 \pmod 7 \quad\lor\quad
+b\equiv 8 \pmod 9 \quad\lor\quad b\equiv 10 \pmod{15}.
+\]
+All fixed points belong to the four explicit families of
+Table~\ref{tab:n6}, apart from a finite exceptional set of points
+confined to bases $b\le 10$ (each such base already being covered by the
+families). Restricted to odd bases the condition becomes
+$b\equiv 13\ (14)\ \lor\ b\equiv 17\ (18)\ \lor\ b\equiv 25\ (30)$.
+\end{theorem}
+
+\begin{theorem}[$n=8$]\label{thm:n8}
+A base $b\ge 2$ admits an eight-digit Kaprekar fixed point if and only if
+\[
+3\mid b \;\lor\; b\equiv 10,12 \pmod{15} \;\lor\;
+b\equiv 11,14 \pmod{17} \;\lor\; b\equiv 13 \pmod{21}
+\;\lor\; b\in\{2,4,8\}.
+\]
+All fixed points belong to the six explicit families of
+Table~\ref{tab:n8}, apart from nine exceptional points confined to
+$b\in\{2,4,6,8,10\}$; the bases $2,4,8$ are the only ones whose fixed
+points are all exceptional. Restricted to odd bases the condition becomes
+$b\equiv 3\ (6) \lor b\equiv 25,27\ (30) \lor b\equiv 11,31\ (34) \lor
+b\equiv 13\ (42)$.
+\end{theorem}
+
+The proofs are computer-assisted in the strong sense: every step is
+either an elementary identity (the borrow-chain successor formulas of
+Section~\ref{sec:channels}) or a finite computation carried out in exact
+rational arithmetic, with the two logical directions treated
+asymmetrically: every \emph{existence} claim is sealed by directly
+verifying $K_{b,n}(x)=x$ for witnesses, while every \emph{emptiness}
+claim uses only necessary linear constraints (Section~\ref{sec:method}).
+The complete classification data and the verification code accompany the
+paper as ancillary files.
+
+Structurally, the two theorems exhibit a striking transition
+(Section~\ref{sec:compare}): the moduli-doubling phenomenon for odd
+bases (each family modulus $D$ doubles to $2D$ under the odd-base
+restriction) persists from $n=6$ to $n=8$, but the palindromic witness
+that makes \emph{every} even base admissible at $n=6$ has no analogue at
+$n=8$; its structural slot is occupied by a parity-blind $3\mid b$
+family, so that infinitely many even bases (e.g.\ $b\equiv 16\pmod{30}$
+outside the other families) admit no eight-digit fixed point. The
+asymptotic density of admissible bases is $68/105\approx 0.648$ for
+$n=6$ and $60/119\approx 0.504$ for $n=8$, the latter being identical
+for odd and even bases.
+
+\section{Preliminaries and the channel decomposition}\label{sec:channels}
+
+Throughout, $n$ is even, $h:=n/2$, and $B:=b-1$.
+
+\begin{definition}
+Let $x$ have base-$b$ digits sorted as $a_0\ge a_1\ge\cdots\ge a_{n-1}$.
+The \emph{difference vector} of $x$ is
+$d(x)=(d_0,\dots,d_{h-1})$ with $d_i=a_i-a_{n-1-i}$.
+\end{definition}
+
+Sortedness forces $d_0\ge d_1\ge\cdots\ge d_{h-1}\ge 0$. A direct
+computation gives
+\begin{equation}\label{eq:value}
+K_{b,n}(x)\;=\;\sum_{i=0}^{h-1} d_i\,\bigl(b^{\,n-1-i}-b^{\,i}\bigr),
+\end{equation}
+so $K_{b,n}$ depends on $x$ only through $d(x)$, and $x$ is a fixed
+point if and only if $x$ equals the right-hand side of \eqref{eq:value}
+evaluated at $d(x)$. This identity also underlies our ground-truth
+scanner: enumerating difference vectors costs $O(b^{h})$ per base
+instead of $O(b^{n})$.
+
+Resolving the borrow chain in \eqref{eq:value} yields the following
+\emph{channel decomposition}. Let $t\in\{0,\dots,h-1\}$ be the number of
+trailing zeros of $d(x)$ and $m:=h-t$.
+
+\begin{lemma}[successor formulas]\label{lem:succ}
+If $x$ is a non-repdigit $n$-digit integer with difference vector $d$
+having $t$ trailing zeros, then the digit string of $K_{b,n}(x)$, from
+most to least significant, is
+\[
+\bigl[\;d_0,\; d_1,\;\dots,\; d_{m-2},\; d_{m-1}-1,\;
+\underbrace{B,\dots,B}_{2t},\;
+B-d_{m-1},\;\dots,\;B-d_1,\; B+1-d_0\;\bigr].
+\]
+In particular the digit sum of any $n$-digit fixed point equals
+$(h+t)B$, and the digit-sum multiples $kB$ with $k=h,\dots,2h-1$
+partition all fixed points into $h$ channels.
+\end{lemma}
+
+\begin{proof}
+The column differences of $\mathrm{desc}-\mathrm{asc}$, from most to
+least significant, are $d_0,\dots,d_{h-1},-d_{h-1},\dots,-d_0$. Working
+from the right: the column $-d_0$ borrows (as $d_0\ge 1$), producing
+digit $b-d_0$; each subsequent column $-d_i-1$ with $i\ge1$ is negative,
+producing $B-d_i$; the $2t$ central columns $0-1$ propagate the borrow
+producing digit $B$; the first nonzero column from the centre,
+$d_{m-1}-1\ge 0$, absorbs the borrow; the remaining columns are
+unchanged. Summing the resulting digits gives $(h+t)B$.
+\end{proof}
+
+For $n=6$ the channels have digit sums $3B,4B,5B$; for $n=8$ they are
+$4B,\dots,7B$. Empirically (and, after Section~\ref{sec:method},
+provably) only the channels $t=0$ and $t=1$ carry infinite families;
+channels $t\ge 2$ are overdetermined by $t$ consistency conditions and
+collapse to finitely many small-base points.
+
+\section{Method: cells, exact classification, and closure}\label{sec:method}
+
+Fix $n$ and a channel $t$, and let $E_1,\dots,E_n$ denote the $n$
+successor expressions of Lemma~\ref{lem:succ}, each linear in
+$(d_0,\dots,d_{m-1})$ and $B$. If $x$ is a fixed point, its multiset of
+digits \emph{is} $\{E_j\}$; choosing a permutation $\sigma$ that sorts
+the expressions into weakly decreasing order therefore places $x$ in the
+\emph{cell} $\sigma$, where the fixed-point condition becomes the linear
+system
+\[
+E_{\sigma(i)}-E_{\sigma(n-1-i)}\;=\;d_i \qquad (i=0,\dots,h-1,
+\ \text{with } d_i:=0 \text{ for } i\ge m),
+\]
+that is, $A_\sigma\,d = B\,c_\sigma + e_\sigma$ with integer data. Every
+fixed point lies in at least one cell (ties are broken arbitrarily; all
+cell inequalities are closed), so classifying all cells classifies all
+fixed points.
+
+Each cell is classified over $\mathbb{Q}$ by row reduction in exact
+rational arithmetic; since the right-hand side is linear in $B$, a
+unique solution has the closed form $d_i=(\alpha_i B+\beta_i)/\Delta$.
+The cells fall into four classes: unique solution for all $B$; unique
+solution at a single $B$; inconsistent; and underdetermined. For cells
+unique in $B$ we then impose the full validity system --- the sorting
+inequalities of $\sigma$, the digit bounds $0\le E_j\le B$, $d_0\ge 1$,
+the channel condition $d_{m-1}\ge 1$, and monotonicity of $d$ --- all of
+which are linear in $B$, giving exact thresholds; integrality of the
+$d_i$ imposes congruences on $B$ modulo $\Delta$. A cell whose
+inequalities hold for all large $B$ and whose congruences are solvable
+yields an \emph{infinite family}; a cell whose inequalities hold only in
+a window $[B_{\min},B_{\max}]$ is exhausted by direct enumeration.
+
+Two design principles keep the argument airtight.
+
+\emph{(i) One-way door.} Every existence claim (family members,
+exceptional points) is finally verified by evaluating
+\eqref{eq:value} and checking $K_{b,n}(x)=x$ directly; every emptiness
+claim uses only constraints that are provably necessary for a fixed
+point, all closed under equality. An off-by-one in a constraint can
+therefore cost efficiency, never correctness.
+
+\emph{(ii) Exact closure of underdetermined cells.} In an
+underdetermined cell the solution set is affine in $(B,u)$, where the
+free parameter $u$ is itself one of the $d_j\in[0,B]$. In every such
+cell arising for $n\in\{6,8\}$ the free dimension is $1$, so the
+validity region is a polyhedron in the $(B,u)$-plane. Since the
+constraints include $B\ge 1$ and $0\le u\le B$, the region contains no
+line; hence, if nonempty, it has a vertex, and vertex enumeration over
+all constraint pairs (again in exact arithmetic) decides emptiness and,
+when bounded, computes $\max B$ exactly. Cells fixing a single $B$
+(the ``finite-$B$'' underdetermined cells) are exhausted by direct
+enumeration of the free parameters at that base.
+
+Finally, the entire pipeline is anchored to ground truth: an exhaustive
+difference-vector scan of all bases $b\le 60$ (and, as an independent
+convention check, a naive full-range scan over all $n$-digit integers
+for small bases), against which every symbolic conclusion is compared
+point-by-point, plus an extension scan ($b\le 150$ for $n=6$, $b\le 100$
+for $n=8$) confirming the classifications beyond the range used to
+build them. A further audit re-derives the verdicts of $1200$ randomly
+sampled cells per length by exhaustive enumeration of the descending
+$d$-cone at two bases, independently of the linear algebra code.
+
+\section{The classification for \texorpdfstring{$n=6$}{n=6}}
+
+\begin{table}[ht]
+\caption{The four families for $n=6$ ($B=b-1$; missing $d$-components are $0$).}\label{tab:n6}
+\begin{tabular}{clll}
+\toprule
+Channel & Congruence & $d$-vector & First members \\
+\midrule
+$t=1$ & $b\equiv 0\ (2)$ & $\bigl(\tfrac{B+1}{2},\tfrac{B+1}{2}\bigr)$ (palindromic $M_b$) & $2,4,6,\dots$ \\
+$t=0$ & $b\equiv 6\ (7)$ & $\bigl(\tfrac{5B+3}{7},\tfrac{3B-1}{7},\tfrac{B+2}{7}\bigr)$ & $6,13,20,\dots$ \\
+$t=0$ & $b\equiv 8\ (9)$ & $\bigl(\tfrac{7B+5}{9},\tfrac{5B+1}{9},\tfrac{B+2}{9}\bigr)$ & $8,17,26,\dots$ \\
+$t=0$ & $b\equiv 10\ (15)$ & $\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B+1}{5}\bigr)$ & $10,25,40,\dots$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The cell census for the main channel $t=0$ of $n=6$: of the $720$
+orderings, $568$ have a unique solution for all $B$ (of which exactly
+$3$ survive as infinite families), $140$ admit no valid base, and $12$
+are underdetermined. The twelve underdetermined cells are closed
+exactly by the linear programming argument of Section~\ref{sec:method}:
+eleven have empty validity regions and one is bounded with
+$\max b\le 60$, inside the exhaustively scanned range. The channel
+$t=1$ contains no underdetermined cells and exactly one family, with
+modulus $2$ and residue $0$; consequently \emph{no odd base has a
+fixed point in the $4B$ channel}, previously an empirical
+observation and now a consequence of the classification. Ground truth
+($52$ fixed points for $b\le 60$, digit-sum split $k=3{:}22$,
+$k=4{:}30$) matches the families plus exceptional points exactly, as
+does the extension scan to $b\le 150$.
+
+The density of admissible bases is $408/630=68/105$; among odd bases it
+is $186/630=31/105\approx 0.295$, matching the classical count.
+
+\section{The classification for \texorpdfstring{$n=8$}{n=8}}
+
+\begin{table}[ht]
+\caption{The six families for $n=8$.}\label{tab:n8}
+\begin{tabular}{clll}
+\toprule
+Channel & Congruence & $d$-vector & First members \\
+\midrule
+$t=1$ & $b\equiv 0\ (3)$ & $\bigl(\tfrac{2B+2}{3},\tfrac{2B-1}{3},\tfrac{B+1}{3}\bigr)$ & $3,6,9,\dots$ \\
+$t=0$ & $b\equiv 10\ (15)$ & $\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B}{3},\tfrac{B+1}{5}\bigr)$ & $10,25,40,55$ \\
+$t=0$ & $b\equiv 12\ (15)$ & $\bigl(\tfrac{13B+7}{15},\tfrac{11B-1}{15},\tfrac{7B-2}{15},\tfrac{B+4}{15}\bigr)$ & $12,27,42,57$ \\
+$t=0$ & $b\equiv 11\ (17)$ & $\bigl(\tfrac{11B+9}{17},\tfrac{7B-2}{17},\tfrac{5B+1}{17},\tfrac{3B+4}{17}\bigr)$ & $11,28,45$ \\
+$t=0$ & $b\equiv 14\ (17)$ & $\bigl(\tfrac{15B+9}{17},\tfrac{13B+1}{17},\tfrac{9B+2}{17},\tfrac{B+4}{17}\bigr)$ & $14,31,48$ \\
+$t=0$ & $b\equiv 13\ (21)$ & $\bigl(\tfrac{5B+3}{7},\tfrac{3B-1}{7},\tfrac{B}{3},\tfrac{B+2}{7}\bigr)$ & $13,34,55$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The nine exceptional points have difference vectors
+$(1,1,1,1),(1,1,1,0),(1,1,0,0)$ at $b=2$;
+$(3,1,1,1),(3,3,1,1),(3,3,3,1)$ at $b=4$; $(5,5,3,1)$ at $b=6$;
+$(7,5,3,1)$ at $b=8$; and $(9,7,5,1)$ at $b=10$.
+
+Cell census: channel $t=0$ has $40320$ cells ($33344$ unique-for-all-$B$,
+of which $9$ live cells give the five families of Table~\ref{tab:n8}
+after deduplication; $505$ bounded windows, all exhausted; $5152$
+inconsistent; $1824$ underdetermined). Channel $t=1$ has $20160$
+distinct cells and exactly one family; channels $t=2,3$ close completely
+(only the $b=2$ point, resp.\ nothing). Of the underdetermined cells,
+all $1162$ finite-$B$ ones fix bases $b\le 60$, covered by the
+exhaustive scan; the $824$ all-$B$ ones all have free dimension one, and
+the exact LP closure finds $779$ empty regions and $45$ bounded with
+$\max b\le 4$, and none unbounded. Hence the classification is complete
+for every base.
+
+\begin{remark}[base ten]
+The two classical eight-digit fixed points of base $10$ (listed, among
+others, in OEIS \cite{OEIS}) are of different kinds: $63317664$
+(difference vector $(6,3,3,2)$) is the first member of the
+$b\equiv 10\pmod{15}$ family, while $97508421$ ($(9,7,5,1)$) is
+exceptional: it belongs to no infinite family.
+\end{remark}
+
+The density of admissible bases is $900/1785=60/119\approx 0.504$;
+because every family modulus is odd, the density is the same among odd
+and among even bases.
+
+\section{Structural comparison and the parity mechanism}\label{sec:compare}
+
+As an independent check, Thakur's data \cite{Thakur19} on which bases
+carry a full attracting Kaprekar constant (a strictly stronger property
+than mere existence of a fixed point) sit inside our classification, as
+they must: his $n=6$ constants at $b=13,17$ are the smallest members of
+our $b\equiv13\ (14)$ and $b\equiv17\ (18)$ families, and his $n=8$
+constant at $b=3$ is the smallest member of our $3\mid b$ family.
+
+\begin{table}[ht]
+\caption{Structural comparison.}\label{tab:compare}
+\begin{tabular}{lll}
+\toprule
+ & $n=6$ & $n=8$ \\
+\midrule
+channels (live) & $3B,4B$ (of $3B,4B,5B$) & $4B,5B$ (of $4B,\dots,7B$) \\
+even bases & all admissible & not all ($16,20,22,\dots$ empty) \\
+$t=1$ witness divisor & $2$ ($M_b$, palindromic) & $3$ \\
+families / moduli & $4$ / $\{2,7,9,15\}$ & $6$ / $\{3,15,15,17,17,21\}$ \\
+odd-base moduli & $14,18,30$ (doubled) & $6,30,34,42$ (doubled) \\
+density (all / odd) & $68/105$ / $31/105$ & $60/119$ / $60/119$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This table has two sources. In channel $t$ the system has $h$
+equations and $m=h-t$ unknowns, so $t=0$ is square (many families),
+$t=1$ carries exactly one consistency condition (one distinguished
+family), and $t\ge2$ is overdetermined (finite collapse). On top of
+that, the single $t=1$ family has divisor $h-1$: for $n=6$ this is
+$2$, forcing $2\mid b$ and creating the even/odd asymmetry, while for
+$n=8$ it is $3$, which is parity-blind. Since all $t=0$ moduli are odd
+in both cases, the parity wall of $n=6$ is thereby explained as an
+artefact of $h-1=2$, not a general feature.
+
+\begin{conjecture}[$n=10$]\label{conj:n10}
+For $n=10$ there are five channels with digit sums $5B,\dots,9B$, of
+which only $5B$ and $6B$ carry infinite families; the distinguished
+$t=1$ family has divisor $h-1=4$, so $b\equiv 0\pmod 4$, restoring a
+(weak) even-base advantage; all $t=0$ moduli are odd, and the family
+moduli again double under the odd-base restriction. The set of
+admissible odd bases has density strictly smaller than at $n=8$.
+\end{conjecture}
+
+The machinery of Section~\ref{sec:method} applies verbatim to $n=10$
+(the $t=0$ channel has $10!$ cells, which is within reach of the exact
+pipeline; a provable reduction to riffle-shuffle cells, using the fact
+that the internal orders of the two blocks of successor expressions
+are forced, cuts this to a few thousand).
+
+\section{Reproducibility}
+
+All computations use exact integer and rational arithmetic (no floating
+point). The ancillary files contain: the core scanner and the general
+even-$n$ pipeline (\texttt{core.py}, \texttt{genpipe.py}, and the
+$n=8$ phase scripts), the ground-truth data ($b\le 60$), the complete
+cell classifications, and the audit scripts. A single command reruns
+each stage; the $n=6$ hardening run reproduces the historical cell
+census $568/140/12$ found in the author's original computation, an
+independent cross-validation of both implementations.
+
+\section*{Acknowledgements}
+
+This work was carried out in an extended human--AI collaboration. The
+classification pipeline, the symbolic derivations, and the drafts of the
+proofs and of this paper were developed jointly with Anthropic's Claude
+models: the $n=6$ classification originally with Claude Opus, and the
+$n=8$ generalisation, the exact closure arguments, the audits, and this
+manuscript with Claude (Fable~5). In line with arXiv policy, the AI
+system is not an author; the author directed the research programme, set
+the verification standards, and takes responsibility for the content.
+All mathematical claims were machine-verified in exact arithmetic and
+independently audited as described in Section~\ref{sec:method}.
+
+\begin{thebibliography}{10}
+
+\bibitem{Kaprekar}
+D.~R. Kaprekar, \emph{An interesting property of the number 6174},
+Scripta Math. \textbf{21} (1955), 304.
+
+\bibitem{HP}
+G.~D. Prichett and H.~Hasse, \emph{The determination of all four-digit
+Kaprekar constants}, J. Reine Angew. Math. \textbf{299/300} (1978),
+113--124.
+
+\bibitem{LLP}
+J.~F. Lapenta, A.~L. Ludington, and G.~D. Prichett, \emph{An algorithm
+to determine self-producing $r$-digit $g$-adic integers}, J. Reine
+Angew. Math. \textbf{310} (1979), 100--110.
+
+\bibitem{Thakur19}
+D.~S. Thakur, \emph{Kaprekar phenomena}, Proceedings of the Ropar
+Conference, RMS Lecture Notes Series No.~26 (2019), 1--10.
+
+\bibitem{Ludington}
+A.~L. Ludington, \emph{A bound on Kaprekar constants}, J. Reine Angew.
+Math. \textbf{310} (1979), 196--203.
+
+\bibitem{PLL}
+G.~D. Prichett, A.~L. Ludington, and J.~F. Lapenta, \emph{The
+determination of all decadic Kaprekar constants}, Fibonacci Quart.
+\textbf{19} (1981), no.~1, 45--52.
+
+\bibitem{KD1}
+A.~Kay and K.~Downes-Ward, \emph{Fixed points and cycles of the Kaprekar
+transformation: 1. Odd bases}, J. Integer Seq. \textbf{25} (2022),
+Article 22.6.7.
+
+\bibitem{KD2}
+A.~Kay and K.~Downes-Ward, \emph{Fixed points and cycles of the Kaprekar
+transformation: 2. Even bases}, arXiv:2408.12257 (2024).
+
+\bibitem{Iwasaki}
+H.~Iwasaki, \emph{A new classification of the Kaprekar numbers},
+Fibonacci Quart. \textbf{62} (2024), no.~4, 275--281.
+
+\bibitem{COST}
+E.~Chen, K.~Ono, R.~E. Schwartz, and D.~S. Thakur, \emph{Four-digit
+Kaprekar dynamics in odd bases}, arXiv:2606.20439 (2026).
+
+\bibitem{OEIS}
+OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer
+Sequences}, entry A099009, \url{https://oeis.org/A099009}.
+
+\end{thebibliography}
+
+\end{document}
