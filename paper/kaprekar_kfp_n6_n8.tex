@@ -41,8 +41,9 @@ arithmetic, and the indeterminate cases are closed by exact
 two-variable linear programming. We describe the structural transition
 between the two classifications: the moduli-doubling phenomenon for odd
 bases persists, while the universal even-base witness of $n=6$ is
-replaced at $n=8$ by a parity-blind $3\mid b$ family. We also formulate
-conjectures for $n=10$.
+replaced at $n=8$ by a parity-blind $3\mid b$ family. A ground-truth
+scan for $n=10$ shows the same parity-blind $3\mid b$ family recurring
+and leaves the general-$n$ law open.
 \end{abstract}
 
 \maketitle
@@ -410,27 +411,42 @@ density (all / odd) & $68/105$ / $31/105$ & $60/119$ / $60/119$ \\
 This table has two sources. In channel $t$ the system has $h$
 equations and $m=h-t$ unknowns, so $t=0$ is square (many families),
 $t=1$ carries exactly one consistency condition (one distinguished
-family), and $t\ge2$ is overdetermined (finite collapse). On top of
-that, the single $t=1$ family has divisor $h-1$: for $n=6$ this is
-$2$, forcing $2\mid b$ and creating the even/odd asymmetry, while for
-$n=8$ it is $3$, which is parity-blind. Since all $t=0$ moduli are odd
-in both cases, the parity wall of $n=6$ is thereby explained as an
-artefact of $h-1=2$, not a general feature.
+family), and $t\ge2$ is overdetermined (finite collapse). Separately,
+the divisor of the single $t=1$ family is even only at $n=6$: it is
+$2$ there, forcing $2\mid b$ and creating the even/odd asymmetry, but
+$3$ at $n=8$ (and again at $n=10$; see Remark~\ref{rem:n10}), which is
+parity-blind. Since all $t=0$ moduli are odd, the parity wall of $n=6$
+appears special to that divisor being $2$ rather than a general
+feature; what fixes the $t=1$ divisor for general $n$ we leave open.
 
-\begin{conjecture}[$n=10$]\label{conj:n10}
-For $n=10$ there are five channels with digit sums $5B,\dots,9B$, of
-which only $5B$ and $6B$ carry infinite families; the distinguished
-$t=1$ family has divisor $h-1=4$, so $b\equiv 0\pmod 4$, restoring a
-(weak) even-base advantage; all $t=0$ moduli are odd, and the family
-moduli again double under the odd-base restriction. The set of
-admissible odd bases has density strictly smaller than at $n=8$.
-\end{conjecture}
+\begin{remark}[$n=10$]\label{rem:n10}
+A ground-truth scan of all bases $b\le 45$ (ancillary file
+\texttt{check\_n10.py}) fixes the qualitative picture and corrects a
+tempting guess. Of the five channels ($5B,\dots,9B$) only $t=0$ and
+$t=1$ carry infinite families, while $t=2,3$ collapse to $b=2$. The
+distinguished $t=1$ family is
+\[
+b\equiv 0 \pmod 3,\qquad
+d=\Bigl(\tfrac{2B+2}{3},\,\tfrac{2B+2}{3},\,\tfrac{B+1}{3},\,
+\tfrac{B+1}{3},\,0\Bigr),
+\]
+of divisor $3$ --- \emph{not} the value $h-1=4$ that the $n=6,8$
+divisors $(2,3)$ might suggest. There is thus no return of an even-base
+advantage; $3\mid b$ persists, parity-blind, as at $n=8$. The $t=0$
+families extend those of Table~\ref{tab:n8} structurally: for example
+$b\equiv 10\pmod{15}$ recurs as
+$d=\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B}{3},\tfrac{B}{3},
+\tfrac{B+1}{5}\bigr)$, the $n=8$ family of the same congruence with one
+additional $\tfrac{B}{3}$ entry, and the $t=0$ moduli remain odd.
+\end{remark}
 
-The machinery of Section~\ref{sec:method} applies verbatim to $n=10$
-(the $t=0$ channel has $10!$ cells, which is within reach of the exact
-pipeline; a provable reduction to riffle-shuffle cells, using the fact
-that the internal orders of the two blocks of successor expressions
-are forced, cuts this to a few thousand).
+Two problems remain open. A complete $n=10$ classification is feasible
+once the $10!$ cell enumeration is reduced to the riffle-shuffle
+interleavings of the two internally-ordered successor blocks (a few
+hundred per channel, versus $10!$ naively). And the general-$n$ law
+governing the $t=1$ divisor is genuinely open: its first three values
+$2,3,3$ do not follow the naive $h-1$, a reminder that two data
+points are not a pattern.
 
 \section{Reproducibility}
 
