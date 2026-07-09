@@ -41,9 +41,9 @@ arithmetic, and the indeterminate cases are closed by exact
 two-variable linear programming. We describe the structural transition
 between the two classifications: the moduli-doubling phenomenon for odd
 bases persists, while the universal even-base witness of $n=6$ is
-replaced at $n=8$ by a parity-blind $3\mid b$ family. A ground-truth
-scan for $n=10$ shows the same parity-blind $3\mid b$ family recurring
-and leaves the general-$n$ law open.
+replaced at $n=8$ by a parity-blind $3\mid b$ family, which provably
+recurs at $n=10$; the general-$n$ law behind these divisors remains
+open.
 \end{abstract}
 
 \maketitle
@@ -420,24 +420,29 @@ appears special to that divisor being $2$ rather than a general
 feature; what fixes the $t=1$ divisor for general $n$ we leave open.
 
 \begin{remark}[$n=10$]\label{rem:n10}
-A ground-truth scan of all bases $b\le 45$ (ancillary file
-\texttt{check\_n10.py}) fixes the qualitative picture and corrects a
-tempting guess. Of the five channels ($5B,\dots,9B$) only $t=0$ and
-$t=1$ carry infinite families, while $t=2,3$ collapse to $b=2$. The
-distinguished $t=1$ family is
+The pattern continues at $n=10$, and it corrects a tempting guess.
+Substituting
 \[
-b\equiv 0 \pmod 3,\qquad
 d=\Bigl(\tfrac{2B+2}{3},\,\tfrac{2B+2}{3},\,\tfrac{B+1}{3},\,
-\tfrac{B+1}{3},\,0\Bigr),
+\tfrac{B+1}{3},\,0\Bigr)
 \]
-of divisor $3$ --- \emph{not} the value $h-1=4$ that the $n=6,8$
-divisors $(2,3)$ might suggest. There is thus no return of an even-base
-advantage; $3\mid b$ persists, parity-blind, as at $n=8$. The $t=0$
-families extend those of Table~\ref{tab:n8} structurally: for example
-$b\equiv 10\pmod{15}$ recurs as
+into the successor string of Lemma~\ref{lem:succ} and re-sorting
+reproduces $d$ for every $B\equiv 2\pmod 3$, $B\ge 2$ (all digit and
+ordering constraints hold; in the sorted string the tie
+$d_{m-1}-1=B-d_0$ closes the check). Hence \emph{every} base
+$b\equiv 0\pmod 3$ admits a ten-digit fixed point: the distinguished
+$t=1$ family has divisor $3$, \emph{not} the value $h-1=4$ that the
+$n=6,8$ divisors $(2,3)$ might suggest, and no even-base advantage
+returns; $3\mid b$ persists, parity-blind, as at $n=8$. A ground-truth
+scan of all bases $b\le 45$ (ancillary file \texttt{check\_n10.py})
+supports the rest of the qualitative picture: in that range the
+channels $t\ge 2$ contribute nothing beyond $b=2$, and the $t=0$
+families visibly extend those of Table~\ref{tab:n8} --- for example
+$b\equiv 10\pmod{15}$ recurs (members $b=10,25,40$) with
 $d=\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B}{3},\tfrac{B}{3},
-\tfrac{B+1}{5}\bigr)$, the $n=8$ family of the same congruence with one
-additional $\tfrac{B}{3}$ entry, and the $t=0$ moduli remain odd.
+\tfrac{B+1}{5}\bigr)$, the $n=8$ family of the same congruence with
+one additional $\tfrac{B}{3}$ entry. Whether these are \emph{all} the
+infinite families at $n=10$ awaits the full cell classification.
 \end{remark}
 
 Two problems remain open. A complete $n=10$ classification is feasible
