@@ -34,7 +34,10 @@ or $b\equiv 10 \pmod{15}$. For $n=8$: if and only if $3\mid b$, or
 $b\equiv 10,12\pmod{15}$, or $b\equiv 11,14\pmod{17}$, or
 $b\equiv 13\pmod{21}$, or $b\in\{2,4,8\}$. All fixed points are given by
 explicit families, linear in $b$, together with a finite exceptional set
-confined to $b\le 10$. The proofs are computer-assisted but exact: a
+confined to $b\le 10$. The existence halves of these classifications
+refine infinite families constructed by Jordan in 1964; the
+completeness halves are, to our knowledge, new. The proofs are
+computer-assisted but exact: a
 channel decomposition of the borrow chain reduces the problem to finitely
 many linear systems over $\mathbb{Q}$, classified with exact rational
 arithmetic, and the indeterminate cases are closed by exact
@@ -71,10 +74,12 @@ Kaprekar constants. Along the second
 axis one fixes the \emph{digit length} $n$ and varies the base. Here two
 questions must be distinguished. The classical, stronger question asks
 for \emph{Kaprekar constants}: a unique fixed point attracting every
-non-repdigit $n$-digit integer. Prichett and Hasse \cite{HP} determined
+non-repdigit $n$-digit integer. Hasse and Prichett \cite{HP} determined
 all bases with a four-digit Kaprekar constant; Lapenta, Ludington and
 Prichett \cite{LLP} gave an algorithm for self-producing ($=$ fixed)
-$r$-digit $g$-adic integers. Thakur \cite{Thakur19} settled the odd
+$r$-digit $g$-adic integers, a line of work going back to Jordan
+\cite{Jordan64}, whose base-ten corollary prefigures the decadic
+classification of \cite{PLL}. Thakur \cite{Thakur19} settled the odd
 lengths $n=5,7,9$ (with a single base each for $n=7,9$), gave partial
 data for $n=6,8$ (Kaprekar constants found only at $b=13,17$ for $n=6$
 among $b\le 39$, and only at $b=3$ for $n=8$ among $b\le 17$), and
@@ -87,11 +92,27 @@ natural first layer of
 that programme, and it is the question we settle here for the even
 lengths $n=6$ and $n=8$. The distinction matters: for instance, our
 scanner shows that for $b\le 60$ five-digit fixed points exist precisely
-for $b=2$ and $3\mid b$, whereas five-digit Kaprekar \emph{constants}
-are far rarer.
+for $b=2$ and $3\mid b$ (the $3\mid b$ direction being consistent with
+Jordan's odd-length construction), whereas five-digit Kaprekar
+\emph{constants} are far rarer.
 
-To our knowledge the even lengths $n\ge 6$ have remained open on the
-second axis. This paper closes the first two cases.
+The existence side of the second axis goes back further than we knew
+when this project began. In 1964, Jordan \cite{Jordan64} constructed,
+for every even digit length, infinite arithmetic progressions of bases
+carrying a fixed point.\footnote{Jordan works with multisets of digits,
+permitting leading zeros; we classify genuine $n$-digit integers
+(leading digit nonzero). The difference matters only in marginal
+small-base cases and affects no statement in this paper.} In our
+notation his families include the progression $b\equiv 10\pmod{15}$
+for every even $n$ (specialising at $n=4$ to the Hasse--Prichett
+family), progressions supported on $b\equiv 13\pmod{21}$ and on
+$b\equiv 28\pmod{51}$, a six-digit example at $b=13$, and a base
+carrying two distinct six-digit fixed points at $b=55$; he closed by
+remarking that ``a general formula would be desirable''. What has
+remained open since 1964 is the \emph{completeness} question: whether
+such constructions exhaust the admissible bases. This paper settles
+that question for the first two even lengths, proving the full
+characterization (both directions) for $n=6$ and $n=8$.
 
 \begin{theorem}[$n=6$]\label{thm:n6}
 A base $b\ge 2$ admits a six-digit Kaprekar fixed point if and only if
@@ -100,8 +121,8 @@ A base $b\ge 2$ admits a six-digit Kaprekar fixed point if and only if
 b\equiv 8 \pmod 9 \quad\lor\quad b\equiv 10 \pmod{15}.
 \]
 All fixed points belong to the four explicit families of
-Table~\ref{tab:n6}, apart from a finite exceptional set of points
-confined to bases $b\le 10$ (each such base already being covered by the
+Table~\ref{tab:n6}, apart from four exceptional points confined to
+bases $b\in\{2,4,6\}$ (each such base already being covered by the
 families). Restricted to odd bases the condition becomes
 $b\equiv 13\ (14)\ \lor\ b\equiv 17\ (18)\ \lor\ b\equiv 25\ (30)$.
 \end{theorem}
@@ -278,7 +299,10 @@ exceptional points) is finally verified by evaluating
 \eqref{eq:value} and checking $K_{b,n}(x)=x$ directly; every emptiness
 claim uses only constraints that are provably necessary for a fixed
 point, all closed under equality. An off-by-one in a constraint can
-therefore cost efficiency, never correctness.
+therefore cost efficiency, never correctness.\footnote{One documented
+instance: in channel $t=3$ the leading-digit constraint was implemented
+as $d_0\ge1$ where the exact condition is $d_0\ge2$. The slack is in
+the safe direction, and that channel is empty in any case.}
 
 \emph{(ii) Exact closure of underdetermined cells.} In an
 underdetermined cell the solution set is affine in $(B,u)$, where the
@@ -305,7 +329,12 @@ $d$-cone at two bases, independently of the linear algebra code.
 \section{The classification for \texorpdfstring{$n=6$}{n=6}}
 
 \begin{table}[ht]
-\caption{The four families for $n=6$ ($B=b-1$; missing $d$-components are $0$).}\label{tab:n6}
+\caption{The four families for $n=6$ ($B=b-1$; missing $d$-components
+are $0$). Origins: the $b\equiv10\ (15)$ family is Jordan's
+\cite{Jordan64}; the $b\equiv6\ (7)$ family contains Jordan's examples
+at $b=13,55$ and his progression $b\equiv13\ (21)$ as a one-third
+density subprogression; the $b\equiv8\ (9)$ and $2\mid b$ families
+appear to be new.}\label{tab:n6}
 \begin{tabular}{clll}
 \toprule
 Channel & Congruence & $d$-vector & First members \\
@@ -317,6 +346,9 @@ $t=0$ & $b\equiv 10\ (15)$ & $\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B+1}{5}\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The four exceptional points have difference vectors $(1,1,1)$ at
+$b=2$; $(3,1,1)$ and $(3,3,1)$ at $b=4$; and $(5,3,1)$ at $b=6$.
 
 The cell census for the main channel $t=0$ of $n=6$: of the $720$
 orderings, $568$ have a unique solution for all $B$ (of which exactly
@@ -339,7 +371,12 @@ is $186/630=31/105\approx 0.295$, matching the classical count.
 \section{The classification for \texorpdfstring{$n=8$}{n=8}}
 
 \begin{table}[ht]
-\caption{The six families for $n=8$.}\label{tab:n8}
+\caption{The six families for $n=8$. Origins: the $b\equiv10\ (15)$
+family and the progression $b\equiv13\ (21)$ appear in Jordan
+\cite{Jordan64}; our $b\equiv11\ (17)$ family contains his
+$b\equiv28\ (51)$ progression as a one-third density subprogression;
+the $b\equiv12\ (15)$, $b\equiv14\ (17)$ and $3\mid b$ families appear
+to be new.}\label{tab:n8}
 \begin{tabular}{clll}
 \toprule
 Channel & Congruence & $d$-vector & First members \\
@@ -361,7 +398,12 @@ $(7,5,3,1)$ at $b=8$; and $(9,7,5,1)$ at $b=10$.
 
 Cell census: channel $t=0$ has $40320$ cells ($33344$ unique-for-all-$B$,
 of which $9$ live cells give the five families of Table~\ref{tab:n8}
-after deduplication; $505$ bounded windows, all exhausted; $5152$
+after deduplication: cells sharing an identical solution merge, the
+$b\equiv 10\ (15)$ family arising in four distinct cells through the
+tied components $B/3$ of its $d$-vector, the other four families in one
+cell each, and one live cell being eliminated by integrality; $505$
+bounded windows, all exhausted --- $15$ window hits in total, none
+beyond $b=14$; $5152$
 inconsistent; $1824$ underdetermined). Channel $t=1$ has $20160$
 distinct cells and exactly one family; channels $t=2,3$ close completely
 (only the $b=2$ point, resp.\ nothing). Of the underdetermined cells,
@@ -369,7 +411,9 @@ all $1162$ finite-$B$ ones fix bases $b\le 60$, covered by the
 exhaustive scan; the $824$ all-$B$ ones all have free dimension one, and
 the exact LP closure finds $779$ empty regions and $45$ bounded with
 $\max b\le 4$, and none unbounded. Hence the classification is complete
-for every base.
+for every base. In the extension range $61\le b\le 100$ the scan finds
+fixed points in $22$ of the $40$ bases, $26$ points in all, each one a
+member of the predicted families.
 
 \begin{remark}[base ten]
 The two classical eight-digit fixed points of base $10$ (listed, among
@@ -441,8 +485,11 @@ families visibly extend those of Table~\ref{tab:n8} --- for example
 $b\equiv 10\pmod{15}$ recurs (members $b=10,25,40$) with
 $d=\bigl(\tfrac{3B+3}{5},\tfrac{B}{3},\tfrac{B}{3},\tfrac{B}{3},
 \tfrac{B+1}{5}\bigr)$, the $n=8$ family of the same congruence with
-one additional $\tfrac{B}{3}$ entry. Whether these are \emph{all} the
-infinite families at $n=10$ awaits the full cell classification.
+one additional $\tfrac{B}{3}$ entry. For the $b\equiv10\pmod{15}$
+family this cross-length uniformity is not new: it is precisely the
+parametrisation of Jordan's 1964 construction \cite{Jordan64}, which
+our verification confirms independently. Whether these are \emph{all}
+the infinite families at $n=10$ awaits the full cell classification.
 \end{remark}
 
 Two problems remain open. A complete $n=10$ classification is feasible
@@ -483,8 +530,12 @@ independently audited as described in Section~\ref{sec:method}.
 D.~R. Kaprekar, \emph{An interesting property of the number 6174},
 Scripta Math. \textbf{21} (1955), 304.
 
+\bibitem{Jordan64}
+J.~H. Jordan, \emph{Self-producing sequences of digits}, Amer. Math.
+Monthly \textbf{71} (1964), 61--64.
+
 \bibitem{HP}
-G.~D. Prichett and H.~Hasse, \emph{The determination of all four-digit
+H.~Hasse and G.~D. Prichett, \emph{The determination of all four-digit
 Kaprekar constants}, J. Reine Angew. Math. \textbf{299/300} (1978),
 113--124.
 

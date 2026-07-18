@@ -1,6 +1,6 @@
 # Six- and eight-digit Kaprekar fixed points: a complete base classification
 
-This repository contains the full, machine-checkable proof pipeline behind the paper
+This repository contains the fully reproducible exact-arithmetic computational proof pipeline behind the paper
 
 > **Bases admitting six- and eight-digit Kaprekar fixed points: a complete congruence classification**
 > Aydın Kaya (independent researcher), 2026.
@@ -43,7 +43,7 @@ All Python scripts live at the repository root because they import one another; 
 | File | What it does |
 |------|--------------|
 | `core.py` | The Kaprekar map and the difference-vector ("d-space") ground-truth scanner. |
-| `genpipe.py` | **General even-`n` pipeline.** Runs the whole classification for any even `n`. Usage: `python genpipe.py 6 60 150` or `python genpipe.py 8 60 100`. |
+| `genpipe.py` | **General even-`n` pipeline.** Runs the whole classification for any even `n`. The result is a complete proof when every underdetermined cell has free dimension ≤ 1 (the case for `n = 6` and `n = 8`); higher-dimensional cells are only scanned up to `b ≤ 400` and reported via the `n_open` flag. Usage: `python genpipe.py 6 60 150` or `python genpipe.py 8 60 100`. |
 | `phase0_bruteforce.py` | `n=8` ground-truth scan + verification against the known `n=6` result. |
 | `phase1_channels.py` | `n=8` channel decomposition / successor-formula check. |
 | `phase2_cells.py` | `n=8` full cell classification (exact rational RREF over all `8!` cells). |
