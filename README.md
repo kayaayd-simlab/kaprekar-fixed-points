@@ -76,6 +76,10 @@ Each script ends with a machine-checkable verdict. The scripts were written in T
 
 As one cross-check worth highlighting: the `n=6` run reproduces the cell census `568 / 140 / 12` (unique / inconsistent / underdetermined) found independently in the author's original 2026 computation — two separate implementations landing on the same cell topology.
 
+## Lean formalization
+
+The folder [`lean/`](lean/) contains a Lean 4 proof of the **existence** direction of both theorems: each of the 4 families for n = 6 and the 6 families for n = 8 yields a fixed point in **every** base of the family. These proofs use no `sorry` and no `native_decide`. The completeness direction is not formalized. See [`lean/README.md`](lean/README.md).
+
 ## On the use of AI
 
 This work was done in an extended collaboration with Anthropic's Claude models, and I'd rather state that plainly than bury it. The six-digit classification was originally worked out with Claude Opus; the eight-digit generalization, the exact-closure arguments, the independent audits, and the write-up were developed with Claude (Fable 5).
